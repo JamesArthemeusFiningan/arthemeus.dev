@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "./root.scss";
+
+@import "./elements/style.scss";
+
+
+html {
+    font-size: 20px;
+    background: black;
+}

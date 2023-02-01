@@ -1,0 +1,24 @@
+.art-app-logo {
+    svg g {
+
+        &.art-app-logo-j {
+            --path-fill: var(--art-gay);
+        }
+
+        &.art-app-logo-oesch {
+            --path-fill: var(--art-apple);
+        }
+
+        &.art-app-logo-finnigan {
+            --path-fill: var(--art-lemon);
+        }
+
+        &.art-app-logo-intersect {
+            --path-fill: var(--art-grape);
+        }
+
+        path {
+            fill: var(--path-fill);
+        }
+    }
+}
