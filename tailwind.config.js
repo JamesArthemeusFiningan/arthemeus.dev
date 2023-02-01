@@ -12,6 +12,9 @@ module.exports = {
                 "apple": "#A4FE37",
                 "grape": "#9037FE",
                 "lemon": "#FEC837"
+            },
+            fontSize: {
+                "fliess": "2rem",
             }
         },
     },

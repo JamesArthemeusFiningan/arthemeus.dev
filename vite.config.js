@@ -13,5 +13,10 @@ export default defineConfig({
             host: 'arthemeus.ddev.site',
             protocol: "wss",
         },
+    },
+    resolve: {
+        alias: {
+            "@fonts": "/resources/css/typography/fonts",
+        },
     }
 });
