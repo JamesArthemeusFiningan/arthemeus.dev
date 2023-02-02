@@ -19,7 +19,7 @@
                     }
                 @endphp
                 <div class="art-img-gallery-item w-full art-img-gallery-item-state-{{$state}}">
-                    <img src="/assets/img/galleries/{{$name}}/{{$image}}" alt="{{$name}}" class="w-full"/>
+                    <img src="/assets/img/galleries/{{$name}}/{{$image}}" alt="{{$name}}" class="w-full" loading="lazy"/>
                 </div>
             @endforeach
         </div>
