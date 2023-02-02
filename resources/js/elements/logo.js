@@ -5,15 +5,15 @@ const animateLogo = (appLogo) => {
 
     setTimeout(() => {
         appLogo.classList.remove("art-app-logo--animated1");
-    }, 6000);
+    }, 8000);
 
     setTimeout(() => {
         appLogo.classList.add("art-app-logo--animated2");
-    }, 7000);
+    }, 9000);
 
     setTimeout(() => {
         appLogo.classList.remove("art-app-logo--animated2");
-    }, 12000);
+    }, 16000);
 }
 
 if (document.querySelector(".art-app-logo")) {
@@ -23,5 +23,5 @@ if (document.querySelector(".art-app-logo")) {
 
     setInterval(() => {
         animateLogo(appLogo);
-    }, 12000);
+    }, 16000);
 }
