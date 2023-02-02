@@ -5,7 +5,7 @@
         </x-slot>
         <x-slot:heroineImage>
             <video autoplay loop muted playsinline>
-                <source src="/assets/vid/ph-work.webm" type="video/webm">
+                <source src="/assets/vid/ph-work.mp4" type="video/mp4">
             </video>
         </x-slot>
     </x-page-heroine>
