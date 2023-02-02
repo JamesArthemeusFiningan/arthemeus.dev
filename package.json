@@ -1,8 +1,7 @@
 {
     "private": true,
     "scripts": {
-        "dev": "vite",
-        "devWin": "find . -name '*:Zone.Identifier' -type f -delete && vite --host",
+        "dev": "vite --host",
         "build": "vite build"
     },
     "devDependencies": {
@@ -14,5 +13,8 @@
         "sass": "^1.58.0",
         "tailwindcss": "^3.2.4",
         "vite": "^4.0.0"
+    },
+    "dependencies": {
+        "twemoji": "^14.0.2"
     }
 }

@@ -15,8 +15,11 @@ module.exports = {
             },
             fontSize: {
                 "fliess": "2rem",
-            }
+            },
+            animation: {
+                "shake": "shake 5s cubic-bezier(.36, .07, .19, .97) infinite",
+            },
         },
-    },
-    plugins: [],
+        plugins: [],
+    }
 }
