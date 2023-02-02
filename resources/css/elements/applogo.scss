@@ -19,6 +19,39 @@
 
         path {
             fill: var(--path-fill);
+            transition: 0.5s ease-in-out fill, 0.5s ease-in-out opacity;
+        }
+    }
+
+    &.art-app-logo--animated1 {
+        svg g {
+            &.art-app-logo-oesch {
+                --path-fill: var(--art-gay);
+            }
+
+            &.art-app-logo-finnigan path {
+                opacity: 0;
+            }
+
+            &.art-app-logo-intersect path {
+                opacity: 0;
+            }
+        }
+    }
+
+    &.art-app-logo--animated2 {
+        svg g {
+            &.art-app-logo-oesch path {
+                opacity: 0;
+            }
+
+            &.art-app-logo-finnigan {
+                --path-fill: var(--art-gay);
+            }
+
+            &.art-app-logo-intersect path {
+                opacity: 0;
+            }
         }
     }
 }
