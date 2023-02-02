@@ -4,7 +4,7 @@ $font-family-base : "Inter",
 sans-serif;
 
 html {
-    font-size: clamp(20px, 1vw, 25px);
+    font-size: clamp(18px, 1vw, 20px);
     color: white;
 
     @media (max-width: 780px) {
@@ -39,4 +39,8 @@ a {
             transform: translateX(0.2em);
         }
     }
+}
+
+p+p {
+    margin-top: 1em;
 }

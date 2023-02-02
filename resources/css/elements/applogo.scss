@@ -62,4 +62,27 @@
             }
         }
     }
+
+    &.art-footer-logo {
+        svg g {
+
+            &.art-app-logo-j {
+                --path-fill: white;
+            }
+
+            &.art-app-logo-oesch {
+                --path-fill: rgba(255, 255, 255, 0.35);
+            }
+
+            &.art-app-logo-finnigan {
+                --path-fill: rgba(255, 255, 255, 0.25);
+                ;
+            }
+
+            &.art-app-logo-intersect {
+                --path-fill: rgba(255, 255, 255, 0.15);
+                ;
+            }
+        }
+    }
 }

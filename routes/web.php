@@ -26,9 +26,19 @@ Route::get('/', function () {
 Route::get('/work', function () {
     $page = [
         "namespace" => "content",
-        "title" => "My work.",
+        "title" => "My Work.",
         "show-appname" => true,
         "description" => "I have been a photographer and videographer for a number of years and have had the privilege of co-founding the marketing and media collective, K., based in Zurich."
     ];
     return view('content.work', compact('page'));
+});
+
+Route::get('/life', function () {
+    $page = [
+        "namespace" => "content",
+        "title" => "My Life.",
+        "show-appname" => true,
+        "description" => "Photography has always held a special place in my heart. Ever since I was young, I have been captivated by the art of capturing moments and memories through the lens of a camera."
+    ];
+    return view('content.life', compact('page'));
 });
