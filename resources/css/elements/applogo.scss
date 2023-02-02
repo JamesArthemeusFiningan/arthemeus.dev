@@ -25,8 +25,12 @@
 
     &.art-app-logo--animated1 {
         svg g {
+            &.art-app-logo-j {
+                --path-fill: var(--art-apple);
+            }
+
             &.art-app-logo-oesch {
-                --path-fill: var(--art-gay);
+                --path-fill: var(--art-apple);
             }
 
             &.art-app-logo-finnigan path {
@@ -45,8 +49,12 @@
                 opacity: 0;
             }
 
+            &.art-app-logo-j {
+                --path-fill: var(--art-lemon);
+            }
+
             &.art-app-logo-finnigan {
-                --path-fill: var(--art-gay);
+                --path-fill: var(--art-lemon);
             }
 
             &.art-app-logo-intersect path {
