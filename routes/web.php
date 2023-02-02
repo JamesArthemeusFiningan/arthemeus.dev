@@ -22,3 +22,13 @@ Route::get('/', function () {
     ];
     return view('home', compact('page'));
 });
+
+Route::get('/work', function () {
+    $page = [
+        "namespace" => "content",
+        "title" => "My work.",
+        "show-appname" => true,
+        "description" => "I have been a photographer and videographer for a number of years and have had the privilege of co-founding the marketing and media collective, K., based in Zurich."
+    ];
+    return view('content.work', compact('page'));
+});

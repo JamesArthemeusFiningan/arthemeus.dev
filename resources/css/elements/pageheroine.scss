@@ -1,0 +1,27 @@
+.art-pageheroine-outer {
+    background: linear-gradient(var(--art-grape) 0%, var(--art-grape) 66%, transparent 66%, transparent 100%);
+
+    .art-pageheroine-image {
+        width: calc(100% + var(--oversize));
+        margin-left: calc(var(--oversize) * -0.5);
+
+        --oversize: 5rem;
+
+        .pageheroine-image-container {
+            width: 100%;
+            height: 50vh;
+            overflow: hidden;
+
+            img,
+            video {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        @media (max-width: 980px) {
+            --oversize: 2rem;
+        }
+    }
+}

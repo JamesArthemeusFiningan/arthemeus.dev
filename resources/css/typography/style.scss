@@ -5,6 +5,7 @@ sans-serif;
 
 html {
     font-size: clamp(20px, 1vw, 25px);
+    color: white;
 
     @media (max-width: 780px) {
         font-size: 18px;

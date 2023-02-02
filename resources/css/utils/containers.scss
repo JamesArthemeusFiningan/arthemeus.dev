@@ -1,0 +1,12 @@
+.art-ct {
+    @apply pl-6 pr-6 mx-auto;
+    width: 100%;
+
+    &.art-ct-lg {
+        max-width: 1708px;
+    }
+
+    &.art-ct-sm {
+        max-width: 820px;
+    }
+}
