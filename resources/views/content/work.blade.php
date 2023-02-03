@@ -16,7 +16,7 @@
     <div class="art-ct art-ct-lg">
         <x-columns class="xl:items-center">
             <x-slot:mobile>
-                <x-image-aspect-ratio src='/assets/img/my-work1.jpeg' class="pb-full" alt='Me at work'/>
+                <x-image-aspect-ratio src='/assets/img/my-work1.jpeg' class="pb-4/3" alt='Me at work'/>
             </x-slot:mobile>
             <x-slot:col1>
                 <p class="text-fliess">Through my work with K., I have been fortunate to work on a diverse range of projects, including marketing videos, political candidate portraits, and product photography.</p>

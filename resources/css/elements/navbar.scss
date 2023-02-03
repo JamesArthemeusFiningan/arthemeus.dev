@@ -3,4 +3,10 @@
     top: 0;
     left: 0;
     z-index: 100;
+
+    button.art-menu-tofuburger {
+        &:focus {
+            outline: none;
+        }
+    }
 }

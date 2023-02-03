@@ -14,11 +14,14 @@
     <x-spacer class="h-12 md:h-28"/>
     <div class="art-ct art-ct-lg">
         <x-columns class="xl:items-center">
+            <x-slot:mobile>
+                <x-image-aspect-ratio src='/assets/img/my-life1.jpg' class="pb-4/3" alt='My beautiful fiancé'/>
+            </x-slot:mobile>
             <x-slot:col1>
-                <x-image-aspect-ratio src='/assets/img/my-life1.jpg' class="pb-full" alt='My beautiful fiancé'/>
+                <p class="text-fliess">One of my biggest driving forces as a photographer is my desire to be daring and find new and unique motives. I am always on the lookout for new and interesting subjects to photograph, whether it's a cityscape at dawn or an intimate portrait of a stranger. I believe that photography is not just about capturing what is in front of you, but also about discovering and exploring the world around you.</p>
             </x-slot:col1>
             <x-slot:col2>
-                <p class="text-fliess">One of my biggest driving forces as a photographer is my desire to be daring and find new and unique motives. I am always on the lookout for new and interesting subjects to photograph, whether it's a cityscape at dawn or an intimate portrait of a stranger. I believe that photography is not just about capturing what is in front of you, but also about discovering and exploring the world around you.</p>
+                <x-image-aspect-ratio src='/assets/img/my-life1.jpg' class="pb-full" alt='My beautiful fiancé'/>
             </x-slot:col2>
         </x-columns>
     </div>
