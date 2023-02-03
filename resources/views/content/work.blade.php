@@ -4,7 +4,7 @@
             My <span class="text-apple">Work</span>.
         </x-slot>
         <x-slot:heroineImage>
-            <video autoplay loop muted playsinline>
+            <video loop muted>
                 <source src="/assets/vid/ph-work.mp4" type="video/mp4">
             </video>
         </x-slot>
