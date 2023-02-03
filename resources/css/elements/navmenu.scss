@@ -1,3 +1,13 @@
 .art-navmenu-wrapper {
     transition: 0.75s ease-in-out max-width;
+
+    .art-navmenu-outer {
+        background-color: black;
+    }
+}
+
+.art-namespace-home {
+    .art-navmenu-outer {
+        background-color: var(--art-grape);
+    }
 }
