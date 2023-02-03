@@ -1,0 +1,51 @@
+.art-img-gallery-container {
+
+    .art-img-gallery-item {
+        grid-row: 1;
+        grid-column: 1;
+        z-index: 10;
+
+        img {
+            max-height: 50vh;
+            object-fit: contain;
+            margin: auto 0;
+        }
+
+        &.art-img-gallery-item-state- {
+
+            &active {
+                opacity: 1;
+                transform: translate(0, 0);
+                filter: none;
+                z-index: 3;
+            }
+
+            &past {
+                opacity: 0.5;
+                transform: translate(-50%, 0) scale(0.75);
+                filter: grayscale(100%) blur(5px) brightness(0.8);
+                z-index: 1;
+            }
+
+            &future-visible {
+                opacity: 0.5;
+                transform: translate(50%, 0) scale(0.75);
+                filter: grayscale(100%) blur(5px) brightness(0.8);
+                z-index: 2;
+            }
+
+            &future-invisible,
+            &last {
+                opacity: 0;
+                transform: translate(50%, 0) scale(0.75);
+                filter: grayscale(100%);
+                z-index: 0;
+            }
+        }
+
+        transition: 0.5s ease-in-out opacity,
+        0.5s ease-in-out transform,
+        0.5s ease-in-out filter,
+        0.5s ease-in-out z-index;
+    }
+}
