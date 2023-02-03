@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     $page = [
         "namespace" => "home",
-        "title" => "Jason Diete Oesch x James Arthemeus Finnigan",
+        "title" => "Jason Dieter Oesch x James Arthemeus Finnigan",
         "show-appname" => false,
         "description" => "Hi 👋 My name is Jason. I’m your photo and video guy based in Lausanne & Zürich."
     ];
