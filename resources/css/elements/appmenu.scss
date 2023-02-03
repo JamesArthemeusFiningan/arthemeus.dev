@@ -8,6 +8,8 @@ button.art-menu-tofuburger {
     div {
         background-color: white;
         height: 0.2rem;
+        transition: 0.5s ease-in-out width, 0.25s ease-in-out transform, 0.25s ease-in-out opacity;
+        transform-origin: center;
 
         &:nth-child(1) {
             width: 2rem;
@@ -19,6 +21,39 @@ button.art-menu-tofuburger {
 
         &:nth-child(3) {
             width: 1.5rem;
+        }
+    }
+
+    &--open {
+        div {
+
+            &:nth-child(1) {
+                width: 2rem;
+            }
+
+            &:nth-child(2) {
+                width: 2rem;
+            }
+
+            &:nth-child(3) {
+                width: 2rem;
+            }
+        }
+    }
+
+    &--x {
+        div {
+            &:nth-child(1) {
+                transform: translateY(0.4rem) rotate(45deg);
+            }
+
+            &:nth-child(2) {
+                opacity: 0;
+            }
+
+            &:nth-child(3) {
+                transform: translateY(-0.4rem) rotate(-45deg);
+            }
         }
     }
 }

@@ -15,6 +15,7 @@
     <main id="main-content" {{$attributes->merge(["class" => ""])}}>
         {{$slot}}
     </main>
+    <x-nav-menu/>
 </body>
 @vite(["resources/js/app.js"])
 </html>

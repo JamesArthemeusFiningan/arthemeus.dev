@@ -4,3 +4,18 @@
     --art-grape: #9037FE;
     --art-lemon: #FEC837;
 }
+
+html {
+
+    &.art-menu--open {
+        overflow: hidden;
+    }
+}
+
+main {
+    transition: 0.75s ease-in-out filter;
+
+    &.art-menu--open {
+        filter: brightness(0.25);
+    }
+}
