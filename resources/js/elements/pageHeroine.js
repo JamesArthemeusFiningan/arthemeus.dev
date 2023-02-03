@@ -12,9 +12,3 @@ if (document.querySelector("button[type='scroll']")) {
         });
     });
 }
-
-if (document.querySelector(".pageheroine-image-container video")) {
-    window.addEventListener("load", () => {
-        document.querySelector(".pageheroine-image-container video").play();
-    });
-}
