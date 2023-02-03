@@ -18,5 +18,8 @@ export default defineConfig({
         alias: {
             "@fonts": "/resources/css/typography/fonts",
         },
+    },
+    esbuild: {
+        drop: ["console", "debugger"]
     }
 });
