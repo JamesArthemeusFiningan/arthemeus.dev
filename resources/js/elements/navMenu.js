@@ -59,7 +59,6 @@ const spanify = (item) => {
         span.style.overflow = "hidden";
         span.dataset.letter = letter;
         span.textContent = randomLetter;
-        console.log(span);
         return span.outerHTML;
     });
     item.innerHTML = spanified.join("");

@@ -42,3 +42,14 @@ Route::get('/life', function () {
     ];
     return view('content.life', compact('page'));
 });
+
+
+Route::get('/test-contactform', function () {
+    $page = [
+        "namespace" => "home",
+        "title" => "Test contactform.",
+        "show-appname" => true,
+        "description" => "Testing contactform"
+    ];
+    return view('test.contactform', compact('page'));
+});
