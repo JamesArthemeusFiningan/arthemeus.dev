@@ -370,6 +370,7 @@ class ContactForm {
         console.log(data);
         setTimeout(() => {
             if (data.success) {
+                this.outroAnimation();
             } else {
                 let error = document.createElement('div');
                 error.classList.add('art-contactform-error');
