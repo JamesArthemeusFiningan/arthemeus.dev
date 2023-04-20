@@ -4,7 +4,7 @@
         <div class="art-footer-menu flex flex-col gap-2 mt-4">
             <a href="/life" class="lg:text-fliess underline w-fit">Find out more about my life</a>
             <a href="/work" class="lg:text-fliess underline w-fit">Find out more about my work</a>
-            <a href="##open-contactform" class="lg:text-fliess underline w-fit">Get in touch</a>
+            <a href="#" class="lg:text-fliess underline w-fit art-contactform-trigger">Get in touch</a>
             <a href="https://kpunkt.ch" target="_blank" rel="norefferer" class="lg:text-fliess w-fit">Built with ❤️ <span class="font-black underline">by K.</span></a>
         </div>
         <div class="art-bottom-bar flex flex-col md:flex-row justify-between gap-6 mt-8">

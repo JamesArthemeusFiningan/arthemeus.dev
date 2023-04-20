@@ -12,8 +12,10 @@ class ContactForm {
         this.timingFuntion = 'ease-in-out';
         this.duration = 500;
         this.twemoji = twemoji;
-        this.submitListener();
+        this.enterListener();
         this.activeField = null;
+        this.goBackToField = this.goBackToField.bind(this);
+        this.backHandlers = {};
     }
 
     render() {
@@ -21,11 +23,15 @@ class ContactForm {
     }
 
     initiateForm() {
-        this.formWrapper.innerHTML = `
-            <form class="art-contactform" action="/api/contact" method="POST">
-            </form>
-        `;
-        this.form = this.formWrapper.querySelector('.art-contactform');
+        this.form = document.createElement('form');
+        this.form.classList.add('art-contactform');
+        this.form.setAttribute('action', '/api/contact');
+        this.form.setAttribute('method', 'POST');
+        this.form.setAttribute('novalidate', 'novalidate');
+        this.form.onsubmit = (e) => {
+            return false;
+        };
+        this.formWrapper.appendChild(this.form);
         document.body.appendChild(this.formWrapper);
         this.formInner = document.createElement('div');
         this.formInner.classList.add('art-contactform-inner');
@@ -99,7 +105,7 @@ class ContactForm {
 
     appendTitle() {
         this.title = document.createElement('h2');
-        this.title.classList.add('art-contactform-title', 'blinded');
+        this.title.classList.add('art-contactform-title');
         this.title.innerHTML = `
             Say 👋
         `;
@@ -117,7 +123,7 @@ class ContactForm {
     appendInput(name) {
         let options = steps[name];
         let inputGp = document.createElement('div');
-        inputGp.classList.add('art-contactform-input-group', 'blinded');
+        inputGp.classList.add('art-contactform-input-group');
         let input;
         switch (options.type) {
             case "text" || "email":
@@ -130,13 +136,16 @@ class ContactForm {
                 input = this.textInput(name, options);
                 break;
         }
-        let label = this.label(name, options);
-        let enterHelper = this.enterHelper();
-        inputGp.appendChild(label);
+        inputGp.appendChild(this.label(name, options));
         inputGp.appendChild(input);
-        inputGp.appendChild(enterHelper);
+        inputGp.appendChild(this.enterHelper(options.next == "submit"));
+        this.setFocusToActiveField();
+        if (options.next == "submit") {
+            inputGp.appendChild(this.submitButton());
+        }
         this.formContent.appendChild(inputGp);
         this.activeField = input;
+        this.activeFieldOptions = options;
         this.nextField = options.next;
         this.reveal(inputGp, {
             delay: options.delay || 0
@@ -150,6 +159,7 @@ class ContactForm {
         input.setAttribute('name', name);
         input.setAttribute('placeholder', options.placeholder);
         input.setAttribute('required', options.required || false);
+        input.setAttribute('autocomplete', options.autocomplete || 'off');
         return input;
     }
 
@@ -166,6 +176,23 @@ class ContactForm {
         return input;
     }
 
+    submitButton() {
+        let submit = document.createElement("button")
+        submit.classList.add("art-button", "art-submit-button", "is-gay")
+        submit.setAttribute("type", "submit")
+        submit.innerText = 'Send Message 📨'
+        this.twemoji.parse(submit, {
+            className: "art-twemoji",
+            ext: ".svg",
+            size: "svg",
+        });
+        submit.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.submit();
+        });
+        return submit;
+    }
+
     label(name, options = {}) {
         let label = document.createElement('label');
         label.classList.add('art-contactform-label');
@@ -174,18 +201,20 @@ class ContactForm {
         return label;
     }
 
-    enterHelper() {
+    enterHelper(submit = false) {
         let enterHelper = document.createElement('div');
+        let type = submit ? "submit" : "proceed";
         enterHelper.classList.add('art-contactform-enter-helper');
         enterHelper.innerHTML = `
             <span class="art-contactform-enter-helper-text">
-                Press <span class="art-contactform-enter-helper-key">Enter</span> to submit
+                Press <span class="art-contactform-enter-helper-key">Enter</span> to ${type}
             </span>
         `;
         return enterHelper;
     }
 
     reveal(element, options = {}) {
+        if (!element) return;
         setTimeout(() => {
             element.animate([
                 { maxHeight: '0' },
@@ -200,10 +229,12 @@ class ContactForm {
     }
 
     vanish(element, options = {}) {
+        if (!element) return;
         setTimeout(() => {
             element.animate([
-                { maxHeight: element.scrollHeight + 'px' },
-                { maxHeight: '0' },
+                { maxHeight: "10000px", overflow: "visible", offset: 0 },
+                { maxHeight: element.scrollHeight + 'px', overflow: "hidden" },
+                { maxHeight: '0', overflow: "hidden" },
             ], {
                 duration: this.duration * 1,
                 easing: this.timingFuntion,
@@ -217,12 +248,21 @@ class ContactForm {
         }, this.duration * options.delay || 0);
     }
 
-    submitListener() {
+    setFocusToActiveField() {
+        setTimeout(() => {
+            this.activeField.focus()
+            this.activeField.select()
+        }, this.duration * 1.15);
+    }
+
+    enterListener() {
         window.addEventListener('keydown', (e) => {
+            if (e.shiftKey) {
+                return;
+            }
             if (e.key === "Enter") {
                 e.preventDefault();
-                let validation = this.validate(this.activeField);
-                console.log(validation);
+                let validation = this.validate(this.activeField, this.activeFieldOptions);
                 if (validation.error) {
                     this.activeField.animate([
                         { borderBottomColor: 'currentColor' },
@@ -233,47 +273,80 @@ class ContactForm {
                         fill: 'forwards'
                     });
                     let error = document.createElement('div');
-                    error.classList.add('art-contactform-error', "blinded");
+                    error.classList.add('art-contactform-error');
                     error.innerText = validation.message;
-                    this.activeField.parentNode.appendChild(error);
+                    this.activeField.parentNode.insertBefore(error, this.activeField.nextSibling);
                     this.reveal(error);
                     setTimeout(() => {
+                        this.activeField.animate([
+                            { borderBottomColor: 'red' },
+                            { borderBottomColor: 'currentColor' },
+                        ], {
+                            duration: this.duration * 1,
+                            easing: this.timingFuntion,
+                            fill: 'forwards'
+                        });
                         this.vanish(error);
                     }, this.duration * 0.4 * validation.message.length);
-                } else if (validation === true) {
-                    this.activeField.setAttribute("readonly", true);
-                    this.activeField.closest(".art-contactform-input-group").animate([
-                        { opacity: 1 },
-                        { opacity: 0.15 },
+                    return;
+                }
+                if (this.activeFieldOptions.next == "submit") {
+                    this.submit();
+                } else {
+                    this.vanish(this.formContent.querySelector(".art-contactform-error") || null);
+                    this.activeField.animate([
+                        { borderBottomColor: 'currentColor' },
+                        { borderBottomColor: 'white' },
                     ], {
                         duration: this.duration * 1,
                         easing: this.timingFuntion,
                         fill: 'forwards'
                     });
-                    this.vanish(this.activeField.nextElementSibling, {
-                        delay: 0.25
+                    this.activeField.setAttribute("readonly", true);
+                    let activeIG = this.activeField.closest(".art-contactform-input-group");
+                    activeIG.animate([
+                        { opacity: 1, filter: 'blur(0)' },
+                        { opacity: 0.15, filter: 'blur(2px) grayscale(1)' },
+                    ], {
+                        duration: this.duration * 1,
+                        easing: this.timingFuntion,
+                        fill: 'forwards'
                     });
+                    activeIG.style.cursor = "pointer";
+                    const BackHandler = (e) => {
+                        e.preventDefault();
+                        this.goBackToField(activeIG);
+                    }
+                    this.backHandlers[this.activeFieldOptions.name] = BackHandler;
+                    activeIG.addEventListener('click', BackHandler);
                     this.appendInput(this.nextField);
                 }
-
             }
         });
     }
 
-    validate(field) {
+    validate(field, fieldOptions) {
         let constraints = {
             [field.name]: {
-                presence: field.required ?? false,
-                email: field.type === "email" ?? false,
+                presence: fieldOptions.required ?? false,
+                email: fieldOptions.type === "email" ?? false,
                 length: {
                     maximum: {
-                        value: field.maxLength ?? 1000,
-                        message: "is too long"
+                        value: fieldOptions.maxLength ?? 1000,
+                        message: fieldOptions.maxlengthmessage ?? "This input is too long"
                     }
                 }
             }
         };
-        console.log(constraints);
+        validate.options = {
+            fullMessages: false
+        }
+        validate.validators.presence.options = {
+            message: fieldOptions.presencemessage ?? "This field is required"
+        }
+        validate.validators.email.options = {
+            message: fieldOptions.emailmessage ?? "This is not a valid email"
+        }
         let errors = validate(this.form, constraints);
         if (errors) {
             return ({
@@ -284,6 +357,120 @@ class ContactForm {
         else {
             return true;
         }
+    }
+
+    async submit() {
+        let formData = new FormData(this.form);
+        let response = await fetch(this.form.action, {
+            method: this.form.method,
+            body: formData
+        });
+        this.changeFormVisibility(false);
+        let data = await response.json();
+        console.log(data);
+        setTimeout(() => {
+            if (data.success) {
+            } else {
+                let error = document.createElement('div');
+                error.classList.add('art-contactform-error');
+                error.innerHTML = `
+                    <div class="art-contactform-error-content">
+                        <p>${data.message}</p>
+                    </div>
+                `
+                this.formContent.appendChild(error);
+                this.changeFormVisibility(true);
+                setTimeout(() => {
+                    this.reveal(error);
+                }, this.duration * 1);
+                setTimeout(() => {
+                    this.vanish(error);
+                }, this.duration * 10);
+            }
+        }, this.duration * 1 + 250);
+    }
+
+    changeFormVisibility(visible) {
+        this.form.animate([
+            { opacity: visible ? 0 : 1, filter: visible ? 'blur(2px) grayscale(1)' : 'blur(0)' },
+            { opacity: visible ? 1 : 0, filter: visible ? 'blur(0)' : 'blur(2px) grayscale(1)' },
+        ], {
+            duration: this.duration * 1,
+            easing: this.timingFuntion,
+            fill: 'forwards'
+        });
+    }
+
+    outroAnimation() {
+        this.vanish(this.closeButton);
+        setTimeout(() => {
+            this.formContent.animate([
+                { opacity: 1, filter: 'blur(0)' },
+                { opacity: 0, filter: 'blur(2px) grayscale(1)' },
+            ], {
+                duration: this.duration * 1,
+                easing: this.timingFuntion,
+                fill: 'forwards'
+            });
+            setTimeout(() => {
+                this.formContent.remove();
+                this.formContent = document.createElement('div');
+                this.formContent.classList.add('art-contactform-content');
+                this.formInner.appendChild(this.formContent);
+                let successMessage = document.createElement('div');
+                successMessage.classList.add('art-contactform-success', "text-center");
+                successMessage.innerHTML = `
+                    <div>
+                        <p class="text-2xl md:text-4xl lg:text-7xl font-black">Thank you for your message!</p>
+                        <p class="text-xl">I'll try to get back to you as soon as possible.</p>
+                    </div>
+                `;
+                this.formContent.appendChild(successMessage);
+                this.formContent.animate([
+                    { opacity: 0, filter: 'blur(2px) grayscale(1)' },
+                    { opacity: 1, filter: 'blur(0)' },
+                ], {
+                    duration: this.duration * 1,
+                    easing: this.timingFuntion,
+                    fill: 'forwards'
+                });
+            }, this.duration * 1);
+        }, this.duration * 1);
+    }
+
+
+    goBackToField(field) {
+        let nextSiblings = [];
+        let element = field;
+        let fieldOptions = steps[field.querySelector("input").name];
+        while (element = element.nextSibling) {
+            nextSiblings.push(element);
+        }
+        let i = 0;
+        nextSiblings.reverse();
+        nextSiblings.forEach((sibling) => {
+            this.vanish(sibling, {
+                delay: i - 1
+            });
+            i++;
+        });
+        setTimeout(() => {
+            field.animate([
+                { opacity: 0.15, filter: 'blur(2px) grayscale(1)' },
+                { opacity: 1, filter: 'blur(0)' },
+            ], {
+                duration: this.duration * 1,
+                easing: this.timingFuntion,
+                fill: 'forwards'
+            });
+            field.style.cursor = "auto";
+            field.removeEventListener('click', this.backHandlers[fieldOptions.name]);
+            field.querySelector("input").removeAttribute("readonly");
+            this.activeField = field.querySelector("input");
+            this.activeFieldOptions = steps[this.activeField.name];
+            this.nextField = this.activeFieldOptions.next;
+            this.setFocusToActiveField();
+        }, this.duration * i - 1);
     }
 }
 

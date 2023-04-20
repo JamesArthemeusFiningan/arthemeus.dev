@@ -3,7 +3,7 @@
         <div class="art-menu-container flex flex-col gap-y-1 underline">
             <a href="/work" class="art-menu-item text-3xl lg:text-7xl font-bold text-white">My Work<span class="text-gay">.</span></a>
             <a href="/life" class="art-menu-item text-3xl lg:text-7xl font-bold text-white">My Life<span class="text-gay">.</span></a>
-            <a href="##open-contactform" class="art-menu-item text-3xl lg:text-7xl font-bold text-white">Get in touch<span class="text-gay">.</span></a>
+            <a href="#" class="art-menu-item text-3xl lg:text-7xl font-bold text-white art-contactform-trigger">Get in touch<span class="text-gay">.</span></a>
         </div>
     </div>
 </div>

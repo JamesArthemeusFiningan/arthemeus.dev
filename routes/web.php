@@ -44,12 +44,22 @@ Route::get('/life', function () {
 });
 
 
-Route::get('/test-contactform', function () {
-    $page = [
-        "namespace" => "home",
-        "title" => "Test contactform.",
-        "show-appname" => true,
-        "description" => "Testing contactform"
-    ];
-    return view('test.contactform', compact('page'));
-});
+if ($_ENV["APP_ENV"] === "local") {
+    Route::get('/test-contactform', function () {
+        $page = [
+            "namespace" => "home",
+            "title" => "Test contactform.",
+            "show-appname" => true,
+            "description" => "Testing contactform"
+        ];
+        return view('test.contactform', compact('page'));
+    });
+
+    Route::get('/test-contactform/mail', function () {
+        return view('mail.contact', [
+            'name' => "[FNAME]" . " " . "[LNAME]",
+            'email' => "[EMAIL]",
+            'message' => "[MESSAGE]"
+        ]);
+    });
+}
